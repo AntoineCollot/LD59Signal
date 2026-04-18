@@ -32,6 +32,6 @@ public class PlayerMovement : MonoBehaviour
 
         //Apply movement
         Vector3 movement = movementDir * currentMoveSpeed * Time.deltaTime;
-        transform.Translate(movement);
+        transform.Translate(movement, Space.World);
     }
 }
