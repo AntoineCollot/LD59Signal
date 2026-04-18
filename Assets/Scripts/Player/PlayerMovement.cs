@@ -1,0 +1,37 @@
+using UnityEngine;
+
+public class PlayerMovement : MonoBehaviour
+{
+    [SerializeField] float moveSpeed;
+    [SerializeField] float moveSpeedSmooth;
+    float refMoveSpeed, currentMoveSpeed;
+    Vector3 movementDir;
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        movementDir = Vector3.forward;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        Vector2 inputs = InputManager.MovementInput;
+        bool isMoving = inputs.magnitude > 0.2f;
+
+        float targetMoveSpeed = 0;
+        if (isMoving)
+        {
+            targetMoveSpeed = moveSpeed;
+            movementDir = new Vector3(inputs.x, 0, inputs.y);
+            movementDir.Normalize();
+        }
+
+        //Move Speed smoothing
+        currentMoveSpeed = Mathf.SmoothDamp(currentMoveSpeed, targetMoveSpeed, ref refMoveSpeed, moveSpeedSmooth);
+
+        //Apply movement
+        Vector3 movement = movementDir * currentMoveSpeed * Time.deltaTime;
+        transform.Translate(movement);
+    }
+}
