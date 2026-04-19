@@ -100,4 +100,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: -45
-  pickUpDistance: 0.5
+  pickUpDistance: 0.7

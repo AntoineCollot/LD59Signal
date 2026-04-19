@@ -17,11 +17,27 @@ public class EnemyMovement : MonoBehaviour
     const float LOOK_AT_SMOOTH = 0.2f;
     EnemyAttack attack;
 
-    public Vector2 Position2D => transform.position.ToVector2();
+    public Vector2 Position2D
+    {
+        get
+        {
+            return transform.position.ToVector2();
+        }
+    }
+    float spawnTime;
 
     void Start()
     {
+        spawnTime = GameManager.Instance.gameTime;
         attack = GetComponent<EnemyAttack>();
+
+        EnemyGrid.Instance.Register(this);
+    }
+
+    private void OnDestroy()
+    {
+        if (EnemyGrid.Instance != null)
+            EnemyGrid.Instance.Deregister(this);
     }
 
     void Update()
@@ -47,7 +63,7 @@ public class EnemyMovement : MonoBehaviour
 
         foreach (EnemyMovement neighbour in neighbours)
         {
-            if (neighbour == this)
+            if (neighbour == this || neighbour == null)
                 continue;
             Vector2 toNeighbour = currentPos - neighbour.Position2D;
             float magnitude = toNeighbour.magnitude + Mathf.Epsilon;
@@ -72,7 +88,8 @@ public class EnemyMovement : MonoBehaviour
         dir.Normalize();
 
         Vector3 movement = dir.ToVector3() * moveSpeed * Time.deltaTime;
-        transform.Translate(movement, Space.World);
+        if (GameManager.Instance.gameTime > spawnTime + EnemySpawner.TIME_BEFORE_MOVEMENT) //Make sure the enemy spawned early enough to move
+            transform.Translate(movement, Space.World);
 
         float targetAngle = -Vector2.SignedAngle(Vector2.up, movement.ToVector2());
         lookAtAngle = Mathf.SmoothDampAngle(lookAtAngle, targetAngle, ref refLookAtAngle, LOOK_AT_SMOOTH);

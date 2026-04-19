@@ -7,22 +7,16 @@ using UnityEditor;
 
 public enum GlobalSFX
 {
-    Jump,
-    Land,
-    EnemyDeath,
-    CatKill,
-    EagleKill,
-    CatAttack,
-    EagleAttack,
-    Hit,
-    Slide,
-    Kick,
-    Dive,
-    DiveLanding,
-    PlayerDeath,
     ButtonClick,
-    ProjectileExplosion,
-    LevelCleared,
+    ButtonHover,
+    PowerSelect,
+    MonsterAttack,
+    PayerDamaged,
+    PlayerDeath,
+    XPPickUp,
+    MonsterKill,
+    MonsterDamaged,
+    LevelUp,
 }
 public class SFXManager : MonoBehaviour
 {
@@ -30,6 +24,7 @@ public class SFXManager : MonoBehaviour
 
     [HideInInspector] public GlobalSFX lastSFX;
     [HideInInspector] public float lastSFXTime;
+    Dictionary<GlobalSFX, float> lastSFXTimes;
     public const float MIN_SFX_INTERVAL = 0.1f;
 
     AudioSource audioSource = null;
@@ -45,23 +40,35 @@ public class SFXManager : MonoBehaviour
             return;
         }
         Instance = this;
+        InitTimes();
         audioSource = GetComponent<AudioSource>();
+    }
+
+    void InitTimes()
+    {
+        lastSFXTimes = new();
+        foreach (var sfx in EnumExtensions.GetValues<GlobalSFX>())
+        {
+            lastSFXTimes.Add(sfx, 0);
+        }
     }
 
     public static void PlaySound(GlobalSFX sfx)
     {
-        if (Instance == null || (Instance.lastSFX == sfx && Time.time - Instance.lastSFXTime < MIN_SFX_INTERVAL))
+        if (Instance == null || Time.time - Instance.lastSFXTimes[sfx] < MIN_SFX_INTERVAL)
             return;
 
         PlaySound((int)sfx);
         Instance.lastSFX = sfx;
+        Instance.lastSFXTimes[sfx] = Time.time;
         Instance.lastSFXTime = Time.time;
     }
 
     public static void PlaySound(int id)
     {
-        if (Instance == null)
+        if (Instance == null || Instance.bank.clips[id] == null)
             return;
+        Instance.audioSource.pitch = Random.Range(0.9f, 1.1f);
         Instance.audioSource.PlayOneShot(Instance.bank.clips[id], Instance.bank.volumes[id]);
     }
 }

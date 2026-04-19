@@ -13,15 +13,21 @@ public class EnemyAttack : MonoBehaviour
     Animator anim;
     static readonly int ATTACK_ANIM = Animator.StringToHash("Attack");
 
+    float spawnTime;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         anim = GetComponentInChildren<Animator>();
+        spawnTime = GameManager.Instance.gameTime;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.Instance.gameTime < spawnTime + EnemySpawner.TIME_BEFORE_ATTACK)
+            return;
+
         if (!GameManager.Instance.GameIsPlaying)
             return;
 
@@ -41,6 +47,7 @@ public class EnemyAttack : MonoBehaviour
     {
         isAttacking = true;
         anim.SetTrigger(ATTACK_ANIM);
+        SFXManager.PlaySound(GlobalSFX.MonsterAttack);
 
         yield return new WaitForSeconds(attackDelay);
 

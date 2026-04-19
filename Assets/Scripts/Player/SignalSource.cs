@@ -11,6 +11,11 @@ public class SignalSource : MonoBehaviour
         offsetAngle = transform.eulerAngles.y;
     }
 
+    private void Start()
+    {
+        PowerUpManager_onAnyUpdate();
+    }
+
     private void OnEnable()
     {
         PowerUpManager.onAnyUpdate += PowerUpManager_onAnyUpdate;
@@ -41,5 +46,6 @@ public class SignalSource : MonoBehaviour
     void UpdateSignal(Signal signal)
     {
         signal.SetFrequency(1 - PlayerAim.Instance.AimDist01);
+        oppositeSignal.SetFrequency(1 - PlayerAim.Instance.AimDist01);
     }
 }

@@ -39,9 +39,11 @@ public class Spark : MonoBehaviour
         isBeingPickedUp = true;
         Vector3 refPos = Vector3.zero;
 
-        while (Vector3.Distance(transform.position, player.transform.position) > PICK_UP_VALIDATE_DIST)
+        //Do not get picked up if already in select
+        while (Vector3.Distance(transform.position, player.transform.position) > PICK_UP_VALIDATE_DIST || XPManager.Instance.IsInLevelUpSelection)
         {
-            transform.position = Vector3.SmoothDamp(transform.position, player.transform.position, ref refPos, PICK_UP_SMOOTH, PICK_UP_MAX_SPEED);
+            if(!XPManager.Instance.IsInLevelUpSelection)
+                transform.position = Vector3.SmoothDamp(transform.position, player.transform.position, ref refPos, PICK_UP_SMOOTH, PICK_UP_MAX_SPEED);
 
             yield return null;
         }

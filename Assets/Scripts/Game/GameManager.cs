@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public bool gameIsPaused {  get; private set; }
     public bool GameIsPlaying => !gameIsOver && gameHasStarted && !gameIsPaused;
     public bool autoStart = true;
+    public float gameTime {  get; private set; }
 
     public UnityEvent onGameStart = new UnityEvent();
     public UnityEvent onGameOver = new UnityEvent();
@@ -22,6 +23,12 @@ public class GameManager : MonoBehaviour
         Instance = this;
         if (autoStart)
             StartGame();
+    }
+
+    private void Update()
+    {
+        if (GameIsPlaying)
+            gameTime += Time.deltaTime;
     }
 
     public void StartGame()

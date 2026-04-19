@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59190a8b7e08e4446842f69026b11840, type: 3}
+  m_Name: Bank
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 8300000, guid: 58a3663c65891b04aa09d44b8892980c, type: 3}
+  - {fileID: 8300000, guid: e84221a7e1e0d2c4682dce8d757767e0, type: 3}
+  - {fileID: 8300000, guid: 743cffad281a31745b0b522a762c69e7, type: 3}
+  - {fileID: 8300000, guid: b725250e9e34e2d47b562c47fd36c383, type: 3}
+  - {fileID: 8300000, guid: 9ebbbba5d41b97f478202dc76e496bc0, type: 3}
+  - {fileID: 8300000, guid: c81e2f6809e45e64d874e550bd9b8d0e, type: 3}
+  - {fileID: 8300000, guid: ed91463077a292a4e9b5cbcf8d557328, type: 3}
+  - {fileID: 8300000, guid: 96225d27a47e3ba4ea9f2b2658b8e0da, type: 3}
+  volumes:
+  - 0.5
+  - 0.5
+  - 1
+  - 0.389
+  - 0.611
+  - 1
+  - 0.183
+  - 0.288
+  - 0.197
+  - 0.5

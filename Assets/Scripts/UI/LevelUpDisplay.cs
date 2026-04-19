@@ -4,6 +4,8 @@ public class LevelUpDisplay : MonoBehaviour
 {
     [SerializeField] PowerDisplay[] displays;
 
+    public bool IsActive => gameObject.activeSelf;
+
     public void Display()
     {
         gameObject.SetActive(true);

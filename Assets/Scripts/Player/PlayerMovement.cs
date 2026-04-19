@@ -48,6 +48,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!GameManager.Instance.GameIsPlaying)
+            return;
         body.linearVelocity = Vector3.zero;
         body.MovePosition(transform.position + movement * Time.fixedDeltaTime);
     }

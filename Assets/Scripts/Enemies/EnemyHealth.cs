@@ -20,11 +20,16 @@ public class EnemyHealth : MonoBehaviour, IHealth
     static protected readonly int DAMAGE_TIME_PROPERTY = Shader.PropertyToID("_DamageTime");
     static protected readonly int DAMAGE_PRECISION_PROPERTY = Shader.PropertyToID("_DamagePrecision");
 
-    protected virtual void Start()
+    protected void Awake()
     {
         matGetter = GetComponentInChildren<EnemyMatGetter>();
         _currentHealth = MaxHealth;
         lastHitTimes = new();
+    }
+
+    protected virtual void Start()
+    {
+
     }
 
     public void Damage(GameObject source, float power, float freq)
@@ -48,6 +53,7 @@ public class EnemyHealth : MonoBehaviour, IHealth
         {
             _currentHealth -= damages;
             FXManager.Instance.EmitDamage(transform.position, damages);
+            SFXManager.PlaySound(GlobalSFX.MonsterDamaged);
 
             if (_currentHealth < 0)
             {
@@ -74,7 +80,12 @@ public class EnemyHealth : MonoBehaviour, IHealth
     {
         if (sparkOnKill > 0)
             XPManager.Instance.SpawnSparks(transform.position,sparkOnKill);
-        gameObject.SetActive(false);
+
+        ScreenShaker.Instance.SmallShake();
+        SFXManager.PlaySound(GlobalSFX.MonsterKill);
+        ScoreManager.Instance.AddScore(Mathf.Max(1, sparkOnKill));
+        FXManager.Instance.EmitDieEffect(transform.position);
+        Destroy(gameObject);
     }
 
     static protected float ComputeDamages(float power, float freq, in DamageFreq damageFreq, out float precision)

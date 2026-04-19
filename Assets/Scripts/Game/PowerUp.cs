@@ -9,4 +9,7 @@ public enum PowerUp
     AmplitudeMax = 1<<2,
     InTheBack = 1<<3,
     HeavyArtillery = 1<<4,
+    TriangleWave = 1<<5, //x2
+    Clone = 1<<6, //Summon
+    Precision = 1<<7, //less amplitude stronger
 }

@@ -3,12 +3,20 @@ using UnityEngine;
 
 public class FXManager : MonoBehaviour
 {
-    public enum AttackType { Radio }
+    [Header("Attacks")]
     [SerializeField] ParticleSystem radioAttackParticles;
+    public enum AttackType { Radio }
 
-    const int NUMBER_POOL_SIZE = 200;
+    [Header("Particles")]
+    [SerializeField] ParticleSystem damageParticles;
+    [SerializeField] ParticleSystem dieParticlesRed;
+    [SerializeField] ParticleSystem dieParticlesSmoke;
+    [SerializeField] ParticleSystem waterSplashParticles;
+
+    [Header("Numbers")]
     [SerializeField] DamageNumber damageNumberPrefab;
     [SerializeField] Transform damageNumberParent;
+    const int NUMBER_POOL_SIZE = 200;
 
     Queue<DamageNumber> numberPool;
 
@@ -38,6 +46,25 @@ public class FXManager : MonoBehaviour
         radioAttackParticles.Emit(1);
     }
 
+    public void EmitDamageEffect(Vector3 position)
+    {
+        damageParticles.transform.position = position;
+        damageParticles.Emit(5);
+    }
+
+    public void EmitDieEffect(Vector3 position)
+    {
+        dieParticlesRed.transform.position = position;
+        dieParticlesRed.Emit(7);
+        dieParticlesSmoke.Emit(10);
+    }
+
+    public void EmitWaterSplash(Vector3 position)
+    {
+        waterSplashParticles.transform.position = position;
+        waterSplashParticles.Play();
+    }
+
     #region DamageNumber
     void InitDamageNumberPool()
     {
@@ -56,6 +83,8 @@ public class FXManager : MonoBehaviour
         {
             number.Display(pos, damage);
         }
+
+        EmitDamageEffect(pos);
     }
 
     public void ReturnDamageToPool(DamageNumber number)

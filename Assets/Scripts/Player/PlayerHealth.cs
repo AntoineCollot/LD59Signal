@@ -4,29 +4,31 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour, IHealth
 {
-    [SerializeField] float baseHP;
-    [SerializeField] Slider slider;
-    float _currentHealth;
+    [SerializeField] protected float baseHP;
+    [SerializeField] protected Slider slider;
+    protected float _currentHealth;
+
+    [SerializeField] protected bool godMode;
 
     public float MaxHealth => baseHP;
     public float CurrentHealth => _currentHealth;
 
     //Hit scale
-    float lastHitTime;
-    const float HIT_SCALE = 0.7f;
-    const float HIT_SCALE_DURATION = 0.3f;
+    protected float lastHitTime;
+    public const float HIT_SCALE = 0.7f;
+    public const float HIT_SCALE_DURATION = 0.3f;
 
     //Anim
-    Animator anim;
-    static readonly int HURT_ANIM = Animator.StringToHash("Hurt");
+    protected Animator anim;
+    protected static readonly int HURT_ANIM = Animator.StringToHash("Hurt");
 
-    void Start()
+    protected void Start()
     {
         _currentHealth = MaxHealth;
         anim = GetComponentInChildren<Animator>();
     }
 
-    void Update()
+    protected void Update()
     {
         slider.value = _currentHealth / MaxHealth;
 
@@ -34,23 +36,32 @@ public class PlayerHealth : MonoBehaviour, IHealth
         anim.transform.localScale = Vector3.one * Curves.QuadEaseInOut(1, HIT_SCALE, Mathf.Clamp01(hitTimeDist));
     }
 
-    public void Damage(GameObject source, float power, float freq)
+    public virtual void Damage(GameObject source, float power, float freq)
     {
+#if UNITY_EDITOR
+        if (godMode)
+            return;
+#endif
+
+        ScreenShaker.Instance.MediumShake();
         _currentHealth -= power;
         lastHitTime = Time.time;
         anim.SetTrigger(HURT_ANIM);
+        SFXManager.PlaySound(GlobalSFX.PayerDamaged);
+
         if (_currentHealth < 0)
             Die();
     }
 
-    public void Die()
+    public virtual void Die()
     {
-        Debug.Log("Game Over!");
+        ScreenShaker.Instance.LargeShake();
+        SFXManager.PlaySound(GlobalSFX.PlayerDeath);
+        GameManager.Instance.GameOver();
     }
 
     public void Heal(float amount)
     {
         throw new System.NotImplementedException();
     }
-
 }

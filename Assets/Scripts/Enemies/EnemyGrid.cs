@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ public class EnemyGrid : MonoBehaviour
     float CellSizeY => arenaSize.y / gridSize.y;
     Vector2 CellSize => new Vector3(CellSizeX, CellSizeY);
 
-    public EnemyMovement[] enemies { get; private set; }
+    public HashSet<EnemyMovement> enemies { get; private set; }
     public List<EnemyMovement>[,] grid;
 
     public static EnemyGrid Instance;
@@ -18,18 +19,23 @@ public class EnemyGrid : MonoBehaviour
     {
         Instance = this;
         InitGrid();
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        enemies = FindObjectsByType<EnemyMovement>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+        enemies = new();
     }
 
     // Update is called once per frame
     void Update()
     {
         UpdateGrid();
+    }
+
+    public void Register(EnemyMovement enemy)
+    {
+        enemies.Add(enemy);
+    }
+
+    public void Deregister(EnemyMovement enemy)
+    {
+        enemies.Remove(enemy);
     }
 
     void UpdateGrid()

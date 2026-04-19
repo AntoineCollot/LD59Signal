@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[DefaultExecutionOrder(-20)] // Before signal, for listening to callbacks
 public class XPManager : MonoBehaviour
 {
     [Header("Levels")]
@@ -17,9 +19,14 @@ public class XPManager : MonoBehaviour
     [SerializeField] float spawnAreaSize;
     Queue<Spark> sparkPool;
 
+    public event Action OnEnemyKilled;
+
     [Header("UI")]
     [SerializeField] Slider xpSlider;
     [SerializeField] LevelUpDisplay levelUpDisplay;
+
+    bool isWatingForLevel;
+    public bool IsInLevelUpSelection => levelUpDisplay.IsActive || isWatingForLevel;
 
     public static XPManager Instance;
 
@@ -30,8 +37,12 @@ public class XPManager : MonoBehaviour
 
         currentLevel = 0;
         nextLevelXP = Fib(1); //Start at 1 for fibonacci
+    }
 
+    private void Start()
+    {
         levelUpDisplay.Hide();
+        xpSlider.value = 0;
     }
 
     public void SpawnSparks(Vector3 pos, int amount = 1)
@@ -47,6 +58,7 @@ public class XPManager : MonoBehaviour
             else
                 spark.transform.position = pos;
         }
+        OnEnemyKilled?.Invoke();
     }
 
     Spark GetSpark()
@@ -62,7 +74,7 @@ public class XPManager : MonoBehaviour
 
     Vector3 GetRandomPosInArea(Vector3 center)
     {
-        Vector2 rand = Random.insideUnitCircle * spawnAreaSize;
+        Vector2 rand = UnityEngine.Random.insideUnitCircle * spawnAreaSize;
         return rand.ToVector3() + center;
     }
 
@@ -72,6 +84,7 @@ public class XPManager : MonoBehaviour
         if (totalXP >= nextLevelXP)
             LevelUp();
 
+        SFXManager.PlaySound(GlobalSFX.XPPickUp);
         xpSlider.value = XPProgress;
 
         sparkPool.Enqueue(spark);
@@ -79,10 +92,25 @@ public class XPManager : MonoBehaviour
 
     void LevelUp()
     {
+        if (GameManager.Instance.gameIsOver)
+            return;
+
+        isWatingForLevel = true;
+        FXManager.Instance.EmitWaterSplash(PlayerState.Instance.transform.position);
         currentLevel++;
         previousLevelXP = nextLevelXP;
         nextLevelXP += Fib(currentLevel + 1); //Start at 1 for fibonacci
         Debug.Log($"Level Up! Next Level {nextLevelXP}");
+
+        SFXManager.PlaySound(GlobalSFX.LevelUp);
+        ScreenShaker.Instance.LargeShake();
+
+        Invoke("LevelUpDelayed", 1);
+    }
+
+    void LevelUpDelayed()
+    {
+        isWatingForLevel = false;
 
         levelUpDisplay.Display();
     }

@@ -12,12 +12,19 @@ public class Signal : MonoBehaviour
     const float MAX_FREQ = 30;
 
     //Current State
+    [SerializeField] bool inverse;
     float signalTime;
     float frequency;
     public float power = 1;
     public float signalLength = 20;
     public float signalWidth = 2;
     public float speed = 2;
+
+    //Triangle wave
+    float endTriangleWaveTime;
+    const float TRIANGLE_WAVE_DURATION = 2;
+    const float TRIANGLE_WAVE_CHANCE = 0.1f;
+    bool IsUsingTriangleWave => GameManager.Instance.gameTime < endTriangleWaveTime;
 
     //Hit
     Collider[] hits;
@@ -38,22 +45,55 @@ public class Signal : MonoBehaviour
         signalRendererHeight = spriteRenderer.transform.position.y;
     }
 
+    private void OnEnable()
+    {
+        XPManager.Instance.OnEnemyKilled += OnEnemyKilled;
+    }
+
+    private void OnDisable()
+    {
+        if (XPManager.Instance != null)
+            XPManager.Instance.OnEnemyKilled -= OnEnemyKilled;
+    }
+
     void Update()
     {
-        signalTime += Time.deltaTime * speed * Mathf.Lerp(MIN_FREQ, MAX_FREQ * 0.5f, frequency);
+        float triangleMult = 1;
+        if (IsUsingTriangleWave)
+            triangleMult = 0.5f;
+        signalTime += Time.deltaTime * speed * Mathf.Lerp(MIN_FREQ, MAX_FREQ * 0.5f, frequency) * triangleMult;
 
-        spriteRenderer.transform.localScale = new Vector3(signalLength, signalWidth * 2, 1);
+        float amplitude = GetAmplitude() * 2;
+
+        spriteRenderer.transform.localScale = new Vector3(signalLength, amplitude, 1);
         spriteRenderer.transform.localPosition = new Vector3(0, signalRendererHeight, signalLength * 0.5f);
+        spriteRenderer.enabled = GameManager.Instance.GameIsPlaying;
 
         ApplyDamages();
         UpdateMaterial();
+    }
+
+    private void OnEnemyKilled()
+    {
+        //Triangle wave
+        if (PowerUpManager.Instance.HasPowerUp(PowerUp.TriangleWave))
+        {
+            //Random chance
+            if (StatsManager.Instance.RunRandomChance(TRIANGLE_WAVE_CHANCE))
+            {
+                endTriangleWaveTime = GameManager.Instance.gameTime + TRIANGLE_WAVE_DURATION;
+            }
+        }
     }
 
     void UpdateMaterial()
     {
         instancedMat.SetFloat(TIME_PARAM, signalTime);
         instancedMat.SetFloat(FREQUENCY_PARAM, Mathf.Lerp(MIN_FREQ, MAX_FREQ, frequency));
-        instancedMat.SetFloat(TRIANGULIZE_PARAM, 0);
+        if (IsUsingTriangleWave)
+            instancedMat.SetFloat(TRIANGULIZE_PARAM, 1);
+        else
+            instancedMat.SetFloat(TRIANGULIZE_PARAM, 0);
     }
 
     void ApplyDamages()
@@ -63,18 +103,27 @@ public class Signal : MonoBehaviour
 
         Vector3 sourcePos = transform.position;
         sourcePos.y = 0;
-        Vector3 sphere0 = sourcePos + transform.forward * signalWidth;
-        Vector3 sphere1 = sourcePos + transform.forward * (signalLength - signalWidth);
+        float amplitude = GetAmplitude();
+        Vector3 sphere0 = sourcePos + transform.forward * amplitude;
+        Vector3 sphere1 = sourcePos + transform.forward * (signalLength - amplitude);
 
         currentHitCount = Physics.OverlapCapsuleNonAlloc(sphere0,
             sphere1,
-            signalWidth,
+            amplitude,
             hits,
             LayerUtils.ENEMY_LAYER_MASK);
 
         Debug.DrawLine(sphere0, sphere1, Color.green);
 
+        //Power
         float effectivePower = StatsManager.Instance.ApplyPassDamageIncrease(power, frequency);
+        if (PowerUpManager.Instance.HasPowerUp(PowerUp.Precision))
+        {
+            effectivePower *= 2f;
+        }
+        if (IsUsingTriangleWave)
+            effectivePower *= 2;
+
         for (int i = 0; i < currentHitCount; i++)
         {
             if (hits[i].TryGetComponent(out IHealth health))
@@ -87,5 +136,22 @@ public class Signal : MonoBehaviour
     public void SetFrequency(float frequency)
     {
         this.frequency = Curves.QuintEaseIn(0, 1, frequency);
+        if (inverse)
+            this.frequency = 1 - frequency;
+    }
+
+    public float GetAmplitude()
+    {
+        float amplitude = signalWidth;
+        if (PowerUpManager.Instance.HasPowerUp(PowerUp.AmplitudeMax))
+        {
+            amplitude *= 2;
+        }
+        if (PowerUpManager.Instance.HasPowerUp(PowerUp.Precision))
+        {
+            amplitude *= 0.5f;
+        }
+
+        return amplitude;
     }
 }

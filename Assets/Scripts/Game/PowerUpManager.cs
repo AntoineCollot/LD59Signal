@@ -27,6 +27,9 @@ public class PowerUpManager : MonoBehaviour
             ObtainPowerUp(power.powerUpType);
         if(power.powerStat != PowerStat.None)
             StatsManager.Instance.ObtainStat(power.powerStat);
+
+        SFXManager.PlaySound(GlobalSFX.PowerSelect);
+        ScreenShaker.Instance.LargeShake();
     }
 
     public void ObtainPowerUp(PowerUp powerUp)
@@ -60,5 +63,11 @@ public class PowerUpManager : MonoBehaviour
                 return candidate;
         }
         return candidate;
+    }
+
+    [ContextMenu("Force Update")]
+    public void ForcePowerUpdate()
+    {
+        onAnyUpdate?.Invoke();
     }
 }
