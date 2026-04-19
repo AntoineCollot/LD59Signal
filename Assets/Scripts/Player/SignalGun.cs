@@ -9,10 +9,16 @@ public class SignalGun : MonoBehaviour
     [SerializeField] SignalSource leftSource;
     [SerializeField] SignalSource rightSource;
 
+    private void Start()
+    {
+        PowerUpManager_onAnyUpdate();
+    }
+
     private void OnEnable()
     {
         PowerUpManager.onAnyUpdate += PowerUpManager_onAnyUpdate;
-        PowerUpManager_onAnyUpdate();
+        if (PowerUpManager.Instance != null)
+            PowerUpManager_onAnyUpdate();
     }
 
     private void OnDisable()

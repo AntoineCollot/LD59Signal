@@ -6,10 +6,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float moveSpeedSmooth;
     float refMoveSpeed, currentMoveSpeed;
     Vector3 movementDir;
+    Vector3 movement;
+    Rigidbody body;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        body = GetComponent<Rigidbody>();
         movementDir = Vector3.forward;
     }
 
@@ -38,7 +41,14 @@ public class PlayerMovement : MonoBehaviour
         currentMoveSpeed = Mathf.SmoothDamp(currentMoveSpeed, targetMoveSpeed, ref refMoveSpeed, moveSpeedSmooth);
 
         //Apply movement
-        Vector3 movement = movementDir * currentMoveSpeed * Time.deltaTime;
-        transform.Translate(movement, Space.World);
+       // movement = movementDir * currentMoveSpeed * Time.deltaTime;
+        movement = movementDir * currentMoveSpeed;
+        //transform.Translate(movement, Space.World);
+    }
+
+    private void FixedUpdate()
+    {
+        body.linearVelocity = Vector3.zero;
+        body.MovePosition(transform.position + movement * Time.fixedDeltaTime);
     }
 }

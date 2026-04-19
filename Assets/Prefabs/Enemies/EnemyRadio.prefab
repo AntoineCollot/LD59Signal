@@ -467,7 +467,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1.5
-  separationDist: 1
+  separationDist: 0.5
+  bodySize: 1
   targetWeight: 1
   separationWeight: 1
 --- !u!135 &1168831477820734453
@@ -503,7 +504,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 629396de7a9813a44b4af5a000d066d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseHealth: 5
+  baseHealth: 10
   damageFreq:
     center: 0.5
     perfectWidth: 0.05

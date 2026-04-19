@@ -6,6 +6,7 @@ public class EnemyMovement : MonoBehaviour
     [Header("Settings")]
     [SerializeField] float moveSpeed = 3;
     [SerializeField] float separationDist = 1;
+    [SerializeField] float bodySize = 1;
 
     [Header("Rules")]
     [SerializeField] float targetWeight = 1;
@@ -44,13 +45,13 @@ public class EnemyMovement : MonoBehaviour
         List<EnemyMovement> neighbours = EnemyGrid.Instance.GetEnemiesAround(currentPos);
         Vector2 separationVector = Vector2.zero;
 
-        foreach (EnemyMovement enemy in neighbours)
+        foreach (EnemyMovement neighbour in neighbours)
         {
-            if (enemy == this)
+            if (neighbour == this)
                 continue;
-            Vector2 toNeighbour = currentPos - enemy.Position2D;
+            Vector2 toNeighbour = currentPos - neighbour.Position2D;
             float magnitude = toNeighbour.magnitude + Mathf.Epsilon;
-            separationVector += (toNeighbour / magnitude) * MathUtils.Inv(magnitude, separationDist);
+            separationVector += (toNeighbour / magnitude) * MathUtils.Inv(magnitude, separationDist * neighbour.bodySize);
         }
 
         return separationVector;

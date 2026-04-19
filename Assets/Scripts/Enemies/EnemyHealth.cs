@@ -7,20 +7,20 @@ using UnityEditor;
 
 public class EnemyHealth : MonoBehaviour, IHealth
 {
-    [SerializeField] float baseHealth;
-    [SerializeField] DamageFreq damageFreq;
-    [SerializeField] int sparkOnKill = 1;
-    float _currentHealth;
-    EnemyMatGetter matGetter;
+    [SerializeField]protected float baseHealth;
+    [SerializeField] protected DamageFreq damageFreq;
+    [SerializeField] protected int sparkOnKill = 1;
+    protected float _currentHealth;
+    protected EnemyMatGetter matGetter;
 
     public float MaxHealth => baseHealth;
     public float CurrentHealth => _currentHealth;
-    Dictionary<GameObject, float> lastHitTimes;
+    protected Dictionary<GameObject, float> lastHitTimes;
 
-    static readonly int DAMAGE_TIME_PROPERTY = Shader.PropertyToID("_DamageTime");
-    static readonly int DAMAGE_PRECISION_PROPERTY = Shader.PropertyToID("_DamagePrecision");
+    static protected readonly int DAMAGE_TIME_PROPERTY = Shader.PropertyToID("_DamageTime");
+    static protected readonly int DAMAGE_PRECISION_PROPERTY = Shader.PropertyToID("_DamagePrecision");
 
-    void Start()
+    protected virtual void Start()
     {
         matGetter = GetComponentInChildren<EnemyMatGetter>();
         _currentHealth = MaxHealth;
@@ -42,11 +42,7 @@ public class EnemyHealth : MonoBehaviour, IHealth
             lastHitTimes.Add(source, Time.time);
 
         float damages = ComputeDamages(power, freq, in damageFreq, out float precision);
-        if (damages > 0)
-        {
-            matGetter.InstancedMaterial.SetFloat(DAMAGE_TIME_PROPERTY, Time.time);
-        }
-        matGetter.InstancedMaterial.SetFloat(DAMAGE_PRECISION_PROPERTY, precision);
+        UpdateMaterials(damages, precision);
 
         if (damageAllowed && damages > 0)
         {
@@ -58,6 +54,15 @@ public class EnemyHealth : MonoBehaviour, IHealth
                 Die();
             }
         }
+    }
+
+    protected virtual void UpdateMaterials(float damages, float precision)
+    {
+        if (damages > 0)
+        {
+            matGetter.InstancedMaterial.SetFloat(DAMAGE_TIME_PROPERTY, Time.time);
+        }
+        matGetter.InstancedMaterial.SetFloat(DAMAGE_PRECISION_PROPERTY, precision);
     }
 
     public void Heal(float amount)
@@ -72,14 +77,14 @@ public class EnemyHealth : MonoBehaviour, IHealth
         gameObject.SetActive(false);
     }
 
-    static float ComputeDamages(float power, float freq, in DamageFreq damageFreq, out float precision)
+    static protected float ComputeDamages(float power, float freq, in DamageFreq damageFreq, out float precision)
     {
         precision = damageFreq.GetFrequencyPrecision(freq);
         return power * precision;
     }
 
 #if UNITY_EDITOR
-    private void OnDrawGizmos()
+    protected void OnDrawGizmos()
     {
         Handles.Label(transform.position + Vector3.right * 0.5f, CurrentHealth.ToString("N1"));
     }

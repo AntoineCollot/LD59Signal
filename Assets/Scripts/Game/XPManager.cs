@@ -63,7 +63,7 @@ public class XPManager : MonoBehaviour
     Vector3 GetRandomPosInArea(Vector3 center)
     {
         Vector2 rand = Random.insideUnitCircle * spawnAreaSize;
-        return rand.ToVector3();
+        return rand.ToVector3() + center;
     }
 
     public void SparkPickedUp(Spark spark)
