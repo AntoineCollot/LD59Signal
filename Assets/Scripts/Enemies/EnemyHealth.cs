@@ -33,7 +33,7 @@ public class EnemyHealth : MonoBehaviour, IHealth
         //Check if has been hit too recently by this source
         if (lastHitTimes.TryGetValue(source, out float lastHitTime))
         {
-            if (Time.time < lastHitTime + PlayerPowerUps.Instance.DamageTickInterval)
+            if (Time.time < lastHitTime + StatsManager.Instance.DamageTickInterval)
                 damageAllowed = false;
             else
                 lastHitTimes[source] = Time.time;

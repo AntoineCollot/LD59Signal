@@ -19,6 +19,7 @@ public class XPManager : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] Slider xpSlider;
+    [SerializeField] LevelUpDisplay levelUpDisplay;
 
     public static XPManager Instance;
 
@@ -29,6 +30,8 @@ public class XPManager : MonoBehaviour
 
         currentLevel = 0;
         nextLevelXP = Fib(1); //Start at 1 for fibonacci
+
+        levelUpDisplay.Hide();
     }
 
     public void SpawnSparks(Vector3 pos, int amount = 1)
@@ -80,6 +83,8 @@ public class XPManager : MonoBehaviour
         previousLevelXP = nextLevelXP;
         nextLevelXP += Fib(currentLevel + 1); //Start at 1 for fibonacci
         Debug.Log($"Level Up! Next Level {nextLevelXP}");
+
+        levelUpDisplay.Display();
     }
 
     static int Fib(int x)

@@ -11,15 +11,19 @@ public class PlayerAim : MonoBehaviour
     [SerializeField] float minDist;
     [SerializeField] float maxDist;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public static PlayerAim Instance;
+
+    private void Awake()
     {
+        Instance = this;
         floorPlane = new Plane(Vector3.up, Vector3.zero);
     }
 
-    // Update is called once per frame
     void Update()
     {
+        if (!GameManager.Instance.GameIsPlaying)
+            return;
+
         Ray camRay = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
         if (!floorPlane.Raycast(camRay, out float dist))
         {

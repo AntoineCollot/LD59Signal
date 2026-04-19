@@ -22,6 +22,9 @@ public class EnemyAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!GameManager.Instance.GameIsPlaying)
+            return;
+
         Vector2 pos = transform.position.ToVector2();
         Transform target = EnemyTargetManager.Instance.GetTargetForPos(pos);
         if (target == null)

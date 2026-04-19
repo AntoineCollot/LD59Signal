@@ -58,6 +58,9 @@ public class EnemyMovement : MonoBehaviour
 
     void Move()
     {
+        if (!GameManager.Instance.GameIsPlaying)
+            return;
+
         if (attack.isInCooldown)
             return;
 

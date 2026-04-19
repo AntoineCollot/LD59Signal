@@ -28,7 +28,7 @@ public class Spark : MonoBehaviour
     {
         transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime, Space.World);
 
-        if (!isBeingPickedUp && Vector3.Distance(player.transform.position, transform.position)< pickUpDistance * PlayerPowerUps.Instance.PickUpDistanceMult)
+        if (!isBeingPickedUp && Vector3.Distance(player.transform.position, transform.position)< pickUpDistance * StatsManager.Instance.LootDistanceMult)
         {
             StartCoroutine(PickUp());
         }

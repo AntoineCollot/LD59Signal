@@ -7,7 +7,8 @@ public class GameManager : MonoBehaviour
 {
     public bool gameIsOver { get; private set; }
     public bool gameHasStarted { get; private set; }
-    public bool GameIsPlaying => !gameIsOver && gameHasStarted;
+    public bool gameIsPaused {  get; private set; }
+    public bool GameIsPlaying => !gameIsOver && gameHasStarted && !gameIsPaused;
     public bool autoStart = true;
 
     public UnityEvent onGameStart = new UnityEvent();
@@ -46,5 +47,15 @@ public class GameManager : MonoBehaviour
 
         gameIsOver = true;
         onGameWin.Invoke();
+    }
+
+    public void Pause()
+    {
+        gameIsPaused = true;
+    }
+
+    public void Resume()
+    {
+        gameIsPaused = false;
     }
 }

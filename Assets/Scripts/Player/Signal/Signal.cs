@@ -58,6 +58,9 @@ public class Signal : MonoBehaviour
 
     void ApplyDamages()
     {
+        if (!GameManager.Instance.GameIsPlaying)
+            return;
+
         Vector3 sourcePos = transform.position;
         sourcePos.y = 0;
         Vector3 sphere0 = sourcePos + transform.forward * signalWidth;
@@ -71,11 +74,12 @@ public class Signal : MonoBehaviour
 
         Debug.DrawLine(sphere0, sphere1, Color.green);
 
+        float effectivePower = StatsManager.Instance.ApplyPassDamageIncrease(power, frequency);
         for (int i = 0; i < currentHitCount; i++)
         {
             if (hits[i].TryGetComponent(out IHealth health))
             {
-                health.Damage(gameObject, power, frequency);
+                health.Damage(gameObject, effectivePower, frequency);
             }
         }
     }

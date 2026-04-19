@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 601d049ed3309974dbd7ee4a51867675, type: 3}
+  m_Name: ScriptablePower Lucky
+  m_EditorClassIdentifier: 
+  powerUpType: 0
+  powerStat: 3
+  color: {r: 0.4294951, g: 0.6320754, b: 0, a: 1}
+  sprite: {fileID: -1470088093, guid: 9f69d3e0b035a914f8a4e6d7ccf92fe6, type: 3}
+  description: Increase all effects based on random chance.

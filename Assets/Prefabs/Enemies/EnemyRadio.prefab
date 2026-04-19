@@ -506,7 +506,9 @@ MonoBehaviour:
   baseHealth: 5
   damageFreq:
     center: 0.5
-    range: 0.217
+    perfectWidth: 0.05
+    range: 0.2
+  sparkOnKill: 1
 --- !u!114 &4443417130120819378
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -16,6 +16,9 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!GameManager.Instance.GameIsPlaying)
+            return;
+
         Vector2 inputs = InputManager.MovementInput;
         bool isMoving = inputs.magnitude > 0.2f;
 
@@ -23,6 +26,8 @@ public class PlayerMovement : MonoBehaviour
         if (isMoving)
         {
             targetMoveSpeed = moveSpeed;
+            targetMoveSpeed *= StatsManager.Instance.MoveSpeedMult;
+
             movementDir = new Vector3(inputs.x, 0, inputs.y);
             movementDir.Normalize();
         }
