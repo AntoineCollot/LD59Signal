@@ -27,6 +27,8 @@ public class PlayerMovement : MonoBehaviour
         {
             targetMoveSpeed = moveSpeed;
             targetMoveSpeed *= StatsManager.Instance.MoveSpeedMult;
+            if (PowerUpManager.Instance.HasPowerUp(PowerUp.HeavyArtillery)) // slow of heavy artillery
+                targetMoveSpeed *= PowerUpManager.HEAVY_ARTILLERY_MOVE_MULT;
 
             movementDir = new Vector3(inputs.x, 0, inputs.y);
             movementDir.Normalize();

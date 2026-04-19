@@ -7,6 +7,8 @@ public class PowerUpManager : MonoBehaviour
     [Header("Level Pool")]
     [SerializeField] ScriptablePower[] bankPowerMajor;
     [SerializeField] ScriptablePower[] bankPowerMinor;
+    [Header("Specifics")]
+    public const float HEAVY_ARTILLERY_MOVE_MULT = 0.5f;
 
     public const int POWER_PER_LEVEL = 3;
     const int MAJOR_LEVEL_EVERY = 3;

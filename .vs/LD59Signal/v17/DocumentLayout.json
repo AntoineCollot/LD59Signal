@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "D:\\Documents\\Programmation\\Unity\\LD59Signal\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0F8F5A89-D5C5-7906-64BF-13453B32E29D}|Assembly-CSharp.csproj|d:\\documents\\programmation\\unity\\ld59signal\\assets\\scripts\\ui\\levelupdisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0F8F5A89-D5C5-7906-64BF-13453B32E29D}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\levelupdisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0F8F5A89-D5C5-7906-64BF-13453B32E29D}|Assembly-CSharp.csproj|d:\\documents\\programmation\\unity\\ld59signal\\assets\\scripts\\player\\signalsource.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0F8F5A89-D5C5-7906-64BF-13453B32E29D}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\player\\signalsource.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0F8F5A89-D5C5-7906-64BF-13453B32E29D}|Assembly-CSharp.csproj|D:\\Documents\\Programmation\\Unity\\LD59Signal\\assets\\scripts\\player\\signalgun.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0F8F5A89-D5C5-7906-64BF-13453B32E29D}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\player\\signalgun.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{0F8F5A89-D5C5-7906-64BF-13453B32E29D}|Assembly-CSharp.csproj|D:\\Documents\\Programmation\\Unity\\LD59Signal\\assets\\scripts\\ui\\powerdisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0F8F5A89-D5C5-7906-64BF-13453B32E29D}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\powerdisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0F8F5A89-D5C5-7906-64BF-13453B32E29D}|Assembly-CSharp.csproj|D:\\Documents\\Programmation\\Unity\\LD59Signal\\assets\\scripts\\game\\scriptablepower.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0F8F5A89-D5C5-7906-64BF-13453B32E29D}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\game\\scriptablepower.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{0F8F5A89-D5C5-7906-64BF-13453B32E29D}|Assembly-CSharp.csproj|D:\\Documents\\Programmation\\Unity\\LD59Signal\\assets\\scripts\\game\\xpmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -21,6 +21,14 @@
     {
       "AbsoluteMoniker": "D:0:0:{0F8F5A89-D5C5-7906-64BF-13453B32E29D}|Assembly-CSharp.csproj|D:\\Documents\\Programmation\\Unity\\LD59Signal\\assets\\scripts\\game\\powerupmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0F8F5A89-D5C5-7906-64BF-13453B32E29D}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\game\\powerupmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0F8F5A89-D5C5-7906-64BF-13453B32E29D}|Assembly-CSharp.csproj|D:\\Documents\\Programmation\\Unity\\LD59Signal\\assets\\scripts\\game\\scriptablepower.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0F8F5A89-D5C5-7906-64BF-13453B32E29D}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\game\\scriptablepower.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0F8F5A89-D5C5-7906-64BF-13453B32E29D}|Assembly-CSharp.csproj|D:\\Documents\\Programmation\\Unity\\LD59Signal\\assets\\scripts\\ui\\levelupdisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0F8F5A89-D5C5-7906-64BF-13453B32E29D}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\levelupdisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,11 +38,36 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
+              "Title": "SignalSource.cs",
+              "DocumentMoniker": "D:\\Documents\\Programmation\\Unity\\LD59Signal\\Assets\\Scripts\\Player\\SignalSource.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Player\\SignalSource.cs",
+              "ToolTip": "D:\\Documents\\Programmation\\Unity\\LD59Signal\\Assets\\Scripts\\Player\\SignalSource.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Player\\SignalSource.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAACIAAAA/AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-19T02:02:14.49Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "SignalGun.cs",
+              "DocumentMoniker": "D:\\Documents\\Programmation\\Unity\\LD59Signal\\Assets\\Scripts\\Player\\SignalGun.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Player\\SignalGun.cs",
+              "ToolTip": "D:\\Documents\\Programmation\\Unity\\LD59Signal\\Assets\\Scripts\\Player\\SignalGun.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Player\\SignalGun.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-19T01:56:23.308Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "ScriptablePower.cs",
               "DocumentMoniker": "D:\\Documents\\Programmation\\Unity\\LD59Signal\\Assets\\Scripts\\Game\\ScriptablePower.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Game\\ScriptablePower.cs",
@@ -52,7 +85,7 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\Game\\XPManager.cs",
               "ToolTip": "D:\\Documents\\Programmation\\Unity\\LD59Signal\\Assets\\Scripts\\Game\\XPManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\Game\\XPManager.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAbAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAACEAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-19T01:31:35.548Z"
             },
@@ -70,19 +103,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "PowerDisplay.cs",
               "DocumentMoniker": "D:\\Documents\\Programmation\\Unity\\LD59Signal\\Assets\\Scripts\\UI\\PowerDisplay.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\PowerDisplay.cs",
               "ToolTip": "D:\\Documents\\Programmation\\Unity\\LD59Signal\\Assets\\Scripts\\UI\\PowerDisplay.cs",
               "RelativeToolTip": "Assets\\Scripts\\UI\\PowerDisplay.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAlAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-19T01:30:46.182Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 6,
               "Title": "LevelUpDisplay.cs",
               "DocumentMoniker": "D:\\Documents\\Programmation\\Unity\\LD59Signal\\Assets\\Scripts\\UI\\LevelUpDisplay.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\LevelUpDisplay.cs",
@@ -90,8 +123,7 @@
               "RelativeToolTip": "Assets\\Scripts\\UI\\LevelUpDisplay.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-19T01:29:59.755Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-19T01:29:59.755Z"
             }
           ]
         }

@@ -5,6 +5,9 @@ public class SignalGun : MonoBehaviour
     [SerializeField] SignalSource mainSource;
     [SerializeField] SignalSource splitSourceLeft;
     [SerializeField] SignalSource splitSourceRight;
+    [SerializeField] SignalSource behindSource;
+    [SerializeField] SignalSource leftSource;
+    [SerializeField] SignalSource rightSource;
 
     private void OnEnable()
     {
@@ -24,5 +27,12 @@ public class SignalGun : MonoBehaviour
         mainSource.gameObject.SetActive(!hasSplit);
         splitSourceLeft.gameObject.SetActive(hasSplit);
         splitSourceRight.gameObject.SetActive(hasSplit);
+
+        //Behind & around
+        bool hasBehind = PowerUpManager.Instance.HasPowerUp(PowerUp.InTheBack);
+        bool hasAround = PowerUpManager.Instance.HasPowerUp(PowerUp.HeavyArtillery);
+        behindSource.gameObject.SetActive(hasBehind || hasAround);
+        leftSource.gameObject.SetActive(hasAround);
+        rightSource.gameObject.SetActive(hasAround);
     }
 }
