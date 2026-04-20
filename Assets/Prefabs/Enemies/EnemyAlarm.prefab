@@ -350,7 +350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2942488b8161fb47a505c4ae893057d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDistance: 1
+  attackDistance: 0.8
   attackDelay: 0.5
   attackCooldown: 0.5
   attackDamage: 1
@@ -366,11 +366,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7f10332a5e0f1d49ac18da70c78706a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseHealth: 10
+  baseHealth: 8
   damageFreq:
     center: 1
-    perfectWidth: 0.1
-    range: 0.3
+    perfectWidth: 0.05
+    range: 0.2
   sparkOnKill: 1
   text: {fileID: 7603347035913927747}
 --- !u!1 &6973679950703724187

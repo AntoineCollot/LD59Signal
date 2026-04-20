@@ -1,4 +1,3 @@
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -57,7 +56,7 @@ public class PlayerHealth : MonoBehaviour, IHealth
         anim.SetTrigger(HURT_ANIM);
         SFXManager.PlaySound(GlobalSFX.PayerDamaged);
 
-        if (_currentHealth < 0)
+        if (_currentHealth <= 0)
             Die();
     }
 

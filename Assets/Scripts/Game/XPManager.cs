@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +9,7 @@ using UnityEngine.UI;
 public class XPManager : MonoBehaviour
 {
     [Header("Levels")]
-    [SerializeField] int baseLevelXPAmount = 10;
+    [SerializeField] int levelXpMult = 10;
     int previousLevelXP = 0;
     int nextLevelXP;
     public int currentLevel { get; private set; }
@@ -24,6 +25,7 @@ public class XPManager : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] Slider xpSlider;
+    [SerializeField] TextMeshProUGUI levelText;
     [SerializeField] LevelUpDisplay levelUpDisplay;
 
     bool isWatingForLevel;
@@ -37,7 +39,10 @@ public class XPManager : MonoBehaviour
         sparkPool = new();
 
         currentLevel = 0;
-        nextLevelXP = Fib(1); //Start at 1 for fibonacci
+        nextLevelXP = Fib(1) * levelXpMult; //Start at 1 for fibonacci
+
+        xpSlider.value = XPProgress;
+        levelText.text = $"Level {currentLevel} ({totalXP}/{nextLevelXP})";
     }
 
     private void Start()
@@ -86,7 +91,11 @@ public class XPManager : MonoBehaviour
             LevelUp();
 
         SFXManager.PlaySound(GlobalSFX.XPPickUp);
+        
+        //UI
         xpSlider.value = XPProgress;
+        levelText.text = $"Level {currentLevel} ({totalXP}/{nextLevelXP})";
+
         ReturnToPool(spark);
     }
 
@@ -104,7 +113,7 @@ public class XPManager : MonoBehaviour
         FXManager.Instance.EmitWaterSplash(PlayerState.Instance.transform.position);
         currentLevel++;
         previousLevelXP = nextLevelXP;
-        nextLevelXP += Fib(currentLevel + 1); //Start at 1 for fibonacci
+        nextLevelXP += Fib(currentLevel + 1) * levelXpMult; //Start at 1 for fibonacci
         Debug.Log($"Level Up! Next Level {nextLevelXP}");
         OnLevelUp?.Invoke();
 

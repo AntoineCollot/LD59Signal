@@ -26,6 +26,8 @@ public class EnemySpawner : MonoBehaviour
     [Header("Wave")]
     [SerializeField] float waveInterval;
     [SerializeField] float waveDuration;
+    bool isInWave;
+    const float REDUCE_SPAWN_MULT_WAVE = 0.75f;
 
     void Start()
     {
@@ -59,7 +61,10 @@ public class EnemySpawner : MonoBehaviour
         if (GameManager.Instance.gameTime < spawnFrequencies[id].startTime)
             return;
 
-        spawnChance[id] += GetSpawnChanceOfIdForFrame(id);
+        float effectiveChance = GetSpawnChanceOfIdForFrame(id);
+        if (isInWave)
+            effectiveChance *= REDUCE_SPAWN_MULT_WAVE;
+        spawnChance[id] += effectiveChance;
 
         if (spawnChance[id] > 1)
         {
@@ -109,6 +114,7 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator WaveSpawn()
     {
+        isInWave = true;
         int enemyWaveID = Random.Range(0,spawnFrequencies.Length);
         Debug.Log($"Start wave of enemy ({enemyWaveID}): {spawnFrequencies[enemyWaveID].prefab.name}");
         float t = 0;
@@ -123,5 +129,7 @@ public class EnemySpawner : MonoBehaviour
             }
             yield return null;
         }
+        Debug.Log($"End wave of enemy");
+        isInWave = false;
     }
 }
