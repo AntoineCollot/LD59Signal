@@ -7,7 +7,7 @@ using UnityEditor;
 
 public class EnemyHealth : MonoBehaviour, IHealth
 {
-    [SerializeField]protected float baseHealth;
+    [SerializeField] protected float baseHealth;
     [SerializeField] protected DamageFreq damageFreq;
     [SerializeField] protected int sparkOnKill = 1;
     protected float _currentHealth;
@@ -16,6 +16,7 @@ public class EnemyHealth : MonoBehaviour, IHealth
     public float MaxHealth => baseHealth;
     public float CurrentHealth => _currentHealth;
     protected Dictionary<GameObject, float> lastHitTimes;
+    protected float lastAnyDamagTime;
 
     static protected readonly int DAMAGE_TIME_PROPERTY = Shader.PropertyToID("_DamageTime");
     static protected readonly int DAMAGE_PRECISION_PROPERTY = Shader.PropertyToID("_DamagePrecision");
@@ -32,7 +33,7 @@ public class EnemyHealth : MonoBehaviour, IHealth
 
     }
 
-    public void Damage(GameObject source, float power, float freq)
+    public void Damage(GameObject source, float power, float freq, bool overrideFreq)
     {
         bool damageAllowed = true;
         //Check if has been hit too recently by this source
@@ -46,8 +47,9 @@ public class EnemyHealth : MonoBehaviour, IHealth
         else
             lastHitTimes.Add(source, Time.time);
 
-        float damages = ComputeDamages(power, freq, in damageFreq, out float precision);
+        float damages = ComputeDamages(power, freq, in damageFreq, overrideFreq, out float precision);
         UpdateMaterials(damages, precision);
+        lastAnyDamagTime = Time.time;
 
         if (damageAllowed && damages > 0)
         {
@@ -79,7 +81,7 @@ public class EnemyHealth : MonoBehaviour, IHealth
     public void Die()
     {
         if (sparkOnKill > 0)
-            XPManager.Instance.SpawnSparks(transform.position,sparkOnKill);
+            XPManager.Instance.SpawnSparks(transform.position, sparkOnKill);
 
         ScreenShaker.Instance.SmallShake();
         SFXManager.PlaySound(GlobalSFX.MonsterKill);
@@ -88,9 +90,11 @@ public class EnemyHealth : MonoBehaviour, IHealth
         Destroy(gameObject);
     }
 
-    static protected float ComputeDamages(float power, float freq, in DamageFreq damageFreq, out float precision)
+    static protected float ComputeDamages(float power, float freq, in DamageFreq damageFreq,bool overrideFreq, out float precision)
     {
         precision = damageFreq.GetFrequencyPrecision(freq);
+        if (overrideFreq)
+            precision = 1;
         return power * precision;
     }
 

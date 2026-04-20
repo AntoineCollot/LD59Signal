@@ -480,7 +480,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b07270a2bc186ef449a1d3fe43ca9b6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 1.5
+  moveSpeed: 1.3
   separationDist: 0.5
   bodySize: 1
   targetWeight: 1
@@ -536,7 +536,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2942488b8161fb47a505c4ae893057d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDistance: 0.75
+  attackDistance: 1
   attackDelay: 0.5
   attackCooldown: 0.5
   attackDamage: 1

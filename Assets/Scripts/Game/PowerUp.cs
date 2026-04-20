@@ -12,4 +12,5 @@ public enum PowerUp
     TriangleWave = 1<<5, //x2
     Clone = 1<<6, //Summon
     Precision = 1<<7, //less amplitude stronger
+    WaterDrops = 1<<8, //on kills
 }

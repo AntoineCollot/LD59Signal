@@ -12,15 +12,19 @@ public class EnemyHealthTV : EnemyHealth, IHealth
 
     protected override void Start()
     {
+        screenMat = new Material(tvBody.sharedMaterials[1]);
+
         base.Start();
 
-        screenMat = new Material(tvBody.sharedMaterials[1]);
-        tvBody.SetMaterials(new List<Material>() { matGetter.InstancedMaterial,screenMat });
+        tvBody.SetMaterials(new List<Material>() { matGetter.InstancedMaterial, screenMat });
     }
 
     protected override void UpdateMaterials(float damages, float precision)
     {
         base.UpdateMaterials(damages, precision);
+
+        if (screenMat == null)
+            return;
 
         if (damages > 0)
         {

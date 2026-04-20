@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 
 public class PowerUpManager : MonoBehaviour
@@ -25,7 +26,7 @@ public class PowerUpManager : MonoBehaviour
     {
         if (power.powerUpType != PowerUp.None)
             ObtainPowerUp(power.powerUpType);
-        if(power.powerStat != PowerStat.None)
+        if (power.powerStat != PowerStat.None)
             StatsManager.Instance.ObtainStat(power.powerStat);
 
         SFXManager.PlaySound(GlobalSFX.PowerSelect);
@@ -64,6 +65,36 @@ public class PowerUpManager : MonoBehaviour
         }
         return candidate;
     }
+
+    public ScriptablePower[] GetPowersForLevel(int level)
+    {
+        bool isMajor = level % MAJOR_LEVEL_EVERY == 0;
+
+        ScriptablePower[] bank;
+        if (isMajor)
+            bank = bankPowerMajor;
+        else
+            bank = bankPowerMinor;
+
+        ScriptablePower candidate;
+        ScriptablePower[] selected = new ScriptablePower[POWER_PER_LEVEL];
+        for (int c = 0; c < POWER_PER_LEVEL; c++)
+        {
+            //Try get powers
+            for (int i = 0; i < 100; i++)
+            {
+                int rand = UnityEngine.Random.Range(0, bank.Length);
+                candidate = bank[rand];
+
+                bool isNew = !selected.Contains(candidate);
+                selected[c] = candidate;
+                if (isNew && (candidate.powerUpType == PowerUp.None || HasPowerUp(candidate.powerUpType)))
+                    break;
+            }
+        }
+        return selected;
+    }
+
 
     [ContextMenu("Force Update")]
     public void ForcePowerUpdate()

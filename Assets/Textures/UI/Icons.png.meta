@@ -131,7 +131,7 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -153,7 +153,7 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -162,6 +162,50 @@ TextureImporter:
       bones: []
       spriteID: d1fbc3313d8581d438755ebfec47fce7
       internalID: -1470088093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icons_MusicOn
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 768
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f271a35a9e5e9f44385b6c4b9c5fc5b7
+      internalID: -608220092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icons_MusicOff
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 768
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fecb264534904348aba917b381c1a4e
+      internalID: 1049584750
       vertices: []
       indices: 
       edges: []
@@ -182,6 +226,8 @@ TextureImporter:
     nameFileIdTable:
       Icons_Major: 71833533
       Icons_Minor: -1470088093
+      Icons_MusicOff: 1049584750
+      Icons_MusicOn: -608220092
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

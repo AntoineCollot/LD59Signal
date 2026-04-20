@@ -16,10 +16,11 @@ public class LevelUpDisplay : MonoBehaviour
 
     void UpdateDisplay()
     {
+        ScriptablePower[] powers = PowerUpManager.Instance.GetPowersForLevel(XPManager.Instance.currentLevel);
         for (int i = 0; i < PowerUpManager.POWER_PER_LEVEL; i++)
         {
-            ScriptablePower power = PowerUpManager.Instance.GetPowerForLevel(XPManager.Instance.currentLevel);
-            displays[i].Display(this,power);
+            //ScriptablePower power = PowerUpManager.Instance.GetPowerForLevel(XPManager.Instance.currentLevel);
+            displays[i].Display(this, powers[i]);
         }
     }
 

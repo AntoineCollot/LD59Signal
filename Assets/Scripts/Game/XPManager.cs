@@ -20,6 +20,7 @@ public class XPManager : MonoBehaviour
     Queue<Spark> sparkPool;
 
     public event Action OnEnemyKilled;
+    public event Action OnLevelUp;
 
     [Header("UI")]
     [SerializeField] Slider xpSlider;
@@ -86,7 +87,11 @@ public class XPManager : MonoBehaviour
 
         SFXManager.PlaySound(GlobalSFX.XPPickUp);
         xpSlider.value = XPProgress;
+        ReturnToPool(spark);
+    }
 
+    public void ReturnToPool(Spark spark)
+    {
         sparkPool.Enqueue(spark);
     }
 
@@ -101,6 +106,7 @@ public class XPManager : MonoBehaviour
         previousLevelXP = nextLevelXP;
         nextLevelXP += Fib(currentLevel + 1); //Start at 1 for fibonacci
         Debug.Log($"Level Up! Next Level {nextLevelXP}");
+        OnLevelUp?.Invoke();
 
         SFXManager.PlaySound(GlobalSFX.LevelUp);
         ScreenShaker.Instance.LargeShake();

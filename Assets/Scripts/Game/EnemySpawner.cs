@@ -4,7 +4,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public const float TIME_BEFORE_ATTACK = 3;
-    public const float TIME_BEFORE_MOVEMENT = 2;
+    public const float TIME_BEFORE_MOVEMENT = 1.5f;
 
     [System.Serializable]
     public struct SpawnFreqData

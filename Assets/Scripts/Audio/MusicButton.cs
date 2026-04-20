@@ -7,14 +7,14 @@ public class MusicButton : MonoBehaviour
 {
     [SerializeField] Sprite onSprite;
     [SerializeField] Sprite offSprite;
-    Image icon;
+    [SerializeField] Image icon;
     [SerializeField] bool isOn;
 
     // Start is called before the first frame update
     void Start()
     {
-		icon = GetComponent<Image>();
-        GetComponent<Button>().onClick.AddListener(OnClick);
+        Button button = GetComponent<Button>();
+        button.onClick.AddListener(OnClick);
         SetValue(isOn);
     }
 

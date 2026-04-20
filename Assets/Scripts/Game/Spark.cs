@@ -5,6 +5,8 @@ public class Spark : MonoBehaviour
 {
     [SerializeField] float rotationSpeed;
     [SerializeField] float pickUpDistance;
+    [SerializeField] float lifeTime = 20;
+    float spawnTime;
 
     bool isBeingPickedUp;
     PlayerState player;
@@ -22,6 +24,7 @@ public class Spark : MonoBehaviour
     private void OnEnable()
     {
         isBeingPickedUp = false;
+        spawnTime = GameManager.Instance.gameTime;
     }
 
     void Update()
@@ -31,6 +34,13 @@ public class Spark : MonoBehaviour
         if (!isBeingPickedUp && Vector3.Distance(player.transform.position, transform.position)< pickUpDistance * StatsManager.Instance.LootDistanceMult)
         {
             StartCoroutine(PickUp());
+        }
+
+        //Too late to pick up
+        if(GameManager.Instance.gameTime > spawnTime + lifeTime)
+        {
+            gameObject.SetActive(false);
+            XPManager.Instance.ReturnToPool(this);
         }
     }
 

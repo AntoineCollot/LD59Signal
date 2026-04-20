@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7294391321590838101}
   - component: {fileID: 4405193994009040507}
   - component: {fileID: 2516834086182803513}
+  - component: {fileID: 5847585337916662116}
   m_Layer: 5
   m_Name: PowerDisplay
   m_TagString: Untagged
@@ -101,6 +102,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5847585337916662116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 840425375303771872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec20783072c18e54da1c17932f7b963f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1638303538085745993
 GameObject:
   m_ObjectHideFlags: 0

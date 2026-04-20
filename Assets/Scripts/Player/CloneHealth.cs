@@ -33,7 +33,7 @@ public class CloneHealth : MonoBehaviour, IHealth
         anim.transform.localScale = Vector3.one * baseScale * Curves.QuadEaseInOut(1, PlayerHealth.HIT_SCALE, Mathf.Clamp01(hitTimeDist));
     }
 
-    public void Damage(GameObject source, float power, float freq)
+    public void Damage(GameObject source, float power, float freq, bool overrideFreq)
     {
         _currentHealth -= power;
         lastHitTime = Time.time;

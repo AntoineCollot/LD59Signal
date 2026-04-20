@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Bank
   m_EditorClassIdentifier: 
   clips:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 8300000, guid: 58a3663c65891b04aa09d44b8892980c, type: 3}
+  - {fileID: 8300000, guid: d6f02a53aa63a7445a23f97f2bf3627b, type: 3}
+  - {fileID: 8300000, guid: 8caea289d3c9f2d4ca9df063e8774839, type: 3}
+  - {fileID: 8300000, guid: 07513dbdab0ca0144931f01b438ef712, type: 3}
   - {fileID: 8300000, guid: e84221a7e1e0d2c4682dce8d757767e0, type: 3}
   - {fileID: 8300000, guid: 743cffad281a31745b0b522a762c69e7, type: 3}
   - {fileID: 8300000, guid: b725250e9e34e2d47b562c47fd36c383, type: 3}
@@ -24,13 +24,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ed91463077a292a4e9b5cbcf8d557328, type: 3}
   - {fileID: 8300000, guid: 96225d27a47e3ba4ea9f2b2658b8e0da, type: 3}
   volumes:
-  - 0.5
-  - 0.5
+  - 0.534
+  - 0.313
   - 1
   - 0.389
   - 0.611
   - 1
   - 0.183
-  - 0.288
-  - 0.197
+  - 0.255
+  - 0.183
   - 0.5

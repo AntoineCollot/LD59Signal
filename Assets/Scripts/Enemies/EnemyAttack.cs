@@ -61,7 +61,7 @@ public class EnemyAttack : MonoBehaviour
         {
             if(col.TryGetComponent(out IHealth health))
             {
-                health.Damage(gameObject, attackDamage, 0);
+                health.Damage(gameObject, attackDamage, 0, true);
             }
         }
 

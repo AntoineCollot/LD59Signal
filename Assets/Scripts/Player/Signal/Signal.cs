@@ -60,7 +60,7 @@ public class Signal : MonoBehaviour
     {
         float triangleMult = 1;
         if (IsUsingTriangleWave)
-            triangleMult = 0.5f;
+            triangleMult = 0.25f;
         signalTime += Time.deltaTime * speed * Mathf.Lerp(MIN_FREQ, MAX_FREQ * 0.5f, frequency) * triangleMult;
 
         float amplitude = GetAmplitude() * 2;
@@ -89,7 +89,7 @@ public class Signal : MonoBehaviour
     void UpdateMaterial()
     {
         instancedMat.SetFloat(TIME_PARAM, signalTime);
-        instancedMat.SetFloat(FREQUENCY_PARAM, Mathf.Lerp(MIN_FREQ, MAX_FREQ, frequency));
+        instancedMat.SetFloat(FREQUENCY_PARAM, Mathf.Lerp(MIN_FREQ, MAX_FREQ, Curves.QuintEaseIn(0, 1, frequency)));
         if (IsUsingTriangleWave)
             instancedMat.SetFloat(TRIANGULIZE_PARAM, 1);
         else
@@ -128,14 +128,14 @@ public class Signal : MonoBehaviour
         {
             if (hits[i].TryGetComponent(out IHealth health))
             {
-                health.Damage(gameObject, effectivePower, frequency);
+                health.Damage(gameObject, effectivePower, frequency, false);
             }
         }
     }
 
     public void SetFrequency(float frequency)
     {
-        this.frequency = Curves.QuintEaseIn(0, 1, frequency);
+        this.frequency = frequency;
         if (inverse)
             this.frequency = 1 - frequency;
     }

@@ -26,6 +26,14 @@ public class PlayerHealth : MonoBehaviour, IHealth
     {
         _currentHealth = MaxHealth;
         anim = GetComponentInChildren<Animator>();
+
+        XPManager.Instance.OnLevelUp += OnLevelUp;
+    }
+
+    void OnDestroy()
+    {
+        if (XPManager.Instance != null)
+            XPManager.Instance.OnLevelUp -= OnLevelUp;
     }
 
     protected void Update()
@@ -36,7 +44,7 @@ public class PlayerHealth : MonoBehaviour, IHealth
         anim.transform.localScale = Vector3.one * Curves.QuadEaseInOut(1, HIT_SCALE, Mathf.Clamp01(hitTimeDist));
     }
 
-    public virtual void Damage(GameObject source, float power, float freq)
+    public virtual void Damage(GameObject source, float power, float freq, bool overrideFreq)
     {
 #if UNITY_EDITOR
         if (godMode)
@@ -60,8 +68,14 @@ public class PlayerHealth : MonoBehaviour, IHealth
         GameManager.Instance.GameOver();
     }
 
+    private void OnLevelUp()
+    {
+        Heal(10);
+    }
+
     public void Heal(float amount)
     {
-        throw new System.NotImplementedException();
+        _currentHealth += amount;
+        _currentHealth = Mathf.Min(MaxHealth, _currentHealth);
     }
 }

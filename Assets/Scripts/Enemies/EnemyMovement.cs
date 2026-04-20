@@ -66,6 +66,8 @@ public class EnemyMovement : MonoBehaviour
             if (neighbour == this || neighbour == null)
                 continue;
             Vector2 toNeighbour = currentPos - neighbour.Position2D;
+            if (toNeighbour.sqrMagnitude < 0.05f)
+                continue;
             float magnitude = toNeighbour.magnitude + Mathf.Epsilon;
             separationVector += (toNeighbour / magnitude) * MathUtils.Inv(magnitude, separationDist * neighbour.bodySize);
         }

@@ -344,7 +344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2942488b8161fb47a505c4ae893057d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDistance: 0.75
+  attackDistance: 1
   attackDelay: 0.5
   attackCooldown: 0.5
   attackDamage: 1
@@ -360,7 +360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9abfaa6c6734be489bb384c1982f223, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseHealth: 60
+  baseHealth: 40
   damageFreq:
     center: 0
     perfectWidth: 0.1
